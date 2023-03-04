@@ -10,12 +10,13 @@ import java.util.Map;
 class FunctionTest {
 
     private static MyFunction func;
-    private static double DELTA;
+    private static double eps;
 
     @BeforeAll
     static void init() {
         func = new MyFunction();
-        DELTA = 0.001;
+        eps = 0.001;
+        func.setEps(eps);
     }
 
     Map<Double, Double> parameterAnswer = new HashMap<>();
@@ -38,13 +39,13 @@ class FunctionTest {
     @ParameterizedTest
     @ValueSource(doubles = {-1.5, -3.545, -2.543, -2.392, -5.534, -5.684, -4.5, -9.828, 0.0, 0.695, 3.822, 1.15, 2.0})
     public void generalTest(double x) {
-        Assertions.assertEquals(parameterAnswer.get(x), func.calculate(x, DELTA), DELTA);
+        Assertions.assertEquals(parameterAnswer.get(x), func.calculate(x), eps);
     }
 
     @Test
     public void periodFunc() {
         for (int x = -1700; x < -800; x ++) {
-            Assertions.assertEquals(func.calculate(x, DELTA), func.calculate(x + Math.PI * 2, DELTA), DELTA);
+            Assertions.assertEquals(func.calculate(x), func.calculate(x + Math.PI * 2), eps);
         }
     }
 }

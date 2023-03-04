@@ -6,14 +6,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class TrigonometryTest {
 
-  private static double DELTA;
+  private static double eps;
   private static Trigonometry tr;
 
   @BeforeAll
   static void init() {
-    DELTA = 0.0001;
+    eps = 0.0001;
     tr = new Trigonometry();
-    tr.setEps(DELTA);
+    tr.setEps(eps);
   }
 
   @Test
@@ -35,20 +35,20 @@ public class TrigonometryTest {
 
   private void assertAll(double param) {
 
-    Assertions.assertEquals(Math.sin(param), tr.sin(param), DELTA);
-    Assertions.assertEquals(Math.cos(param), tr.cos(param), DELTA);
-    Assertions.assertEquals(Math.tan(param), tr.tan(param), DELTA);
-    Assertions.assertEquals(1 / Math.cos(param), tr.sec(param), DELTA);
-    Assertions.assertEquals(1 / Math.tan(param), tr.cot(param), DELTA);
+    Assertions.assertEquals(Math.sin(param), tr.sin(param), eps);
+    Assertions.assertEquals(Math.cos(param), tr.cos(param), eps);
+    Assertions.assertEquals(Math.tan(param), tr.tan(param), eps);
+    Assertions.assertEquals(1 / Math.cos(param), tr.sec(param), eps);
+    Assertions.assertEquals(1 / Math.tan(param), tr.cot(param), eps);
   }
 
   @ParameterizedTest
   @ValueSource(doubles = {-0.99, -0.01, 0})
   public void symmetricalTest(double param) {
-    Assertions.assertEquals(Math.sin(param), -tr.sin(-param), DELTA);
-    Assertions.assertEquals(Math.cos(param), tr.cos(-param), DELTA);
-    Assertions.assertEquals(Math.tan(param), -tr.tan(-param), DELTA);
-    Assertions.assertEquals(1 / Math.cos(param), tr.sec(-param), DELTA);
-    Assertions.assertEquals(1 / Math.tan(param), -tr.cot(-param), DELTA);
+    Assertions.assertEquals(Math.sin(param), -tr.sin(-param), eps);
+    Assertions.assertEquals(Math.cos(param), tr.cos(-param), eps);
+    Assertions.assertEquals(Math.tan(param), -tr.tan(-param), eps);
+    Assertions.assertEquals(1 / Math.cos(param), tr.sec(-param), eps);
+    Assertions.assertEquals(1 / Math.tan(param), -tr.cot(-param), eps);
   }
 }

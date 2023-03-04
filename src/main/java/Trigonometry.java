@@ -3,6 +3,9 @@ import org.apache.commons.csv.CSVPrinter;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class Trigonometry {
 
@@ -17,28 +20,8 @@ public class Trigonometry {
     return sin.calculate(x, eps);
   }
 
-  public double writeSinCSV(double x, Writer out) {
-    double res = sin(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
-  }
-
   public double cos(double x) {
     return sin(Math.PI/2 + x);
-  }
-
-  public double writeCosCSV(double x, Writer out) {
-    double res = cos(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
   }
 
   public double tan(double arg) {
@@ -46,35 +29,15 @@ public class Trigonometry {
     return (x > 0) ?  - sin(-x) / cos(-x) :  sin(x) / cos(x);
   }
 
-  public double writeTanCSV(double x, Writer out) {
-    double res = tan(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
-  }
-
   public double sec(double x) {
     return 1/cos(-Math.abs(x));
-  }
-
-  public double writeSecCSV(double x, Writer out) {
-    double res = sec(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
   }
 
   public double cot(double x) {
     return 1/tan(x);
   }
 
-  public double writeCotCSV(double x, Writer out) {
+  public double writeCSV(double x, Writer out) {
     double res = cot(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
@@ -82,5 +45,18 @@ public class Trigonometry {
       System.out.println(e.getMessage());
     }
     return res;
+  }
+
+  Map<FunctionType, Function<Double, Double>> functionCSVMapper= new HashMap<>();
+  {
+    functionCSVMapper.put(FunctionType.SIN, this::sin);
+    functionCSVMapper.put(FunctionType.COS, this::cos);
+    functionCSVMapper.put(FunctionType.TAN, this::tan);
+    functionCSVMapper.put(FunctionType.SEC, this::sec);
+    functionCSVMapper.put(FunctionType.COT, this::cot);
+  }
+
+  enum FunctionType {
+    SIN, COS, TAN, SEC, COT;
   }
 }
