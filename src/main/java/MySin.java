@@ -1,3 +1,9 @@
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.IOException;
+import java.io.Writer;
+
 public class MySin {
 
   private final static double DELTA = 0.0001;
@@ -32,6 +38,16 @@ public class MySin {
       divider = divider * ++pow * ++pow;
     }
 
+    return res;
+  }
+
+  public double writeCSV(double x, double eps, Writer out) {
+    double res = calculate(x, eps);
+    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
+      printer.printRecord(x, res);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
     return res;
   }
 

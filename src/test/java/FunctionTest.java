@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -6,6 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 class FunctionTest {
+
+    private static MyFunction func;
+    private static double DELTA;
+
+    @BeforeAll
+    static void init() {
+        func = new MyFunction();
+        DELTA = 0.0001;
+    }
 
     Map<Double, Double> parameterAnswer = new HashMap<>();
     {
@@ -17,7 +28,7 @@ class FunctionTest {
         parameterAnswer.put(-5.684, 0.0);
         parameterAnswer.put(-4.5, 0.0);
         parameterAnswer.put(-9.828, 4.683);
-        parameterAnswer.put(0.0, Double.NEGATIVE_INFINITY);
+        parameterAnswer.put(0.0, Double.NaN);
         parameterAnswer.put(0.695, -1.192);
         parameterAnswer.put(3.822, 0.0);
         parameterAnswer.put(1.15, 2.974);
@@ -27,7 +38,13 @@ class FunctionTest {
     @ParameterizedTest
     @ValueSource(doubles = {-1.5, -3.545, -2.543, -2.392, -5.534, -5.684, -4.5, -9.828, 0.0, 0.695, 3.822, 1.15, 2.0})
     public void generalTest(double x) {
-        MyFunction func = new MyFunction();
-        Assertions.assertEquals(parameterAnswer.get(x), func.calculate(x), 0.001);
+        Assertions.assertEquals(parameterAnswer.get(x), func.calculate(x, DELTA), DELTA);
+    }
+
+    @Test
+    public void periodFunc() {
+        for (int x = -1700; x < -800; x ++) {
+            Assertions.assertEquals(func.calculate(x), func.calculate(x + Math.PI * 2), DELTA);
+        }
     }
 }

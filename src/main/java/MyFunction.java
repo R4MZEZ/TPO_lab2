@@ -1,3 +1,9 @@
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.IOException;
+import java.io.Writer;
+
 public class MyFunction {
 
   private final Trigonometry tr;
@@ -20,5 +26,15 @@ public class MyFunction {
       return (((((log.log(x, 10) - log.log(x, 2)) * log.log(x, 2)) + (log.log(x, 10) / log.ln(x)))
           + log.log(x, 2)) + ((log.log(x, 10) / log.log(x, 2)) / log.log(x, 3)));
     }
+  }
+
+  public double writeCSV(double x, double eps, Writer out) {
+    double res = calculate(x, eps);
+    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
+      printer.printRecord(x, res);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+    return res;
   }
 }
