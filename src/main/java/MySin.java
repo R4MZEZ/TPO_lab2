@@ -23,7 +23,7 @@ public class MySin {
     double divisible = x * x * x;
     long divider = 6, sign = -1, pow = 3;
 
-    while (Math.abs(term) > eps) {
+    while (Math.abs(term + sign * divisible / divider) > eps) {
       term = sign * (divisible / divider);
       res += term;
 

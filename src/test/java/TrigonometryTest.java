@@ -15,10 +15,21 @@ public class TrigonometryTest {
     tr = new Trigonometry();
   }
 
+  @Test
+  public void forceBurst() {
+    for (int x = -200; x < 200; x ++) {
+      assertAll(((double)x) / 100);
+    }
+  }
+
   @ParameterizedTest
   @ValueSource(doubles = {-10.0, -1.01, -1, -0.99, -0.01, 0, 10.0, 1.01, 1, 0.99, 0.01, Double.NaN,
       Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY})
   public void generalTest(double param) {
+    assertAll(param);
+  }
+
+  private void assertAll(double param) {
     Assertions.assertEquals(Math.sin(param), tr.sin(param, DELTA), DELTA);
     Assertions.assertEquals(Math.cos(param), tr.cos(param, DELTA), DELTA);
     Assertions.assertEquals(Math.tan(param), tr.tan(param, DELTA), DELTA);

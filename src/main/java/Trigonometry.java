@@ -6,16 +6,16 @@ public class Trigonometry {
   }
 
   public double cos(double x, double eps) {
-    int sign = x > Math.PI / 2 || x < -Math.PI / 2 ? -1 : 1;
-    return sign * Math.sqrt(1 - sin(x, eps) * sin(x, eps));
+    return sin(Math.PI/2 + x, eps);
   }
 
-  public double tan(double x, double eps) {
-    return sin(x, eps) / cos(x, eps);
+  public double tan(double arg, double eps) {
+    double x = arg - Math.PI * Math.floor((arg + Math.PI/2) / Math.PI);
+    return (x > 0) ?  - sin(-x, eps) / cos(-x, eps) :  sin(x, eps) / cos(x, eps);
   }
 
   public double sec(double x, double eps) {
-    return 1/cos(x, eps);
+    return 1/cos(-Math.abs(x), eps);
   }
 
   public double cot(double x, double eps) {

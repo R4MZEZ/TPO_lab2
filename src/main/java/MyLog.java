@@ -13,6 +13,6 @@ public class MyLog {
     }
 
     public double log(double arg, double base) {
-        return ln.calculate(arg)/ln.calculate(base);
+        return ln.calculate(arg, exp)/ln.calculate(base, exp);
     }
 }
