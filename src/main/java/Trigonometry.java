@@ -6,13 +6,19 @@ import java.io.Writer;
 
 public class Trigonometry {
 
-  public double sin(double x, double exp) {
+  private double eps = 0.0001;
+
+  public void setEps(double x) {
+    this.eps = x;
+  }
+
+  public double sin(double x) {
     MySin sin = new MySin();
-    return sin.calculate(x, exp);
+    return sin.calculate(x, eps);
   }
 
   public double writeSinCSV(double x, Writer out) {
-    double res = sin(x, eps);
+    double res = sin(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {
@@ -21,12 +27,12 @@ public class Trigonometry {
     return res;
   }
 
-  public double cos(double x, double eps) {
-    return sin(Math.PI/2 + x, eps);
+  public double cos(double x) {
+    return sin(Math.PI/2 + x);
   }
 
   public double writeCosCSV(double x, Writer out) {
-    double res = cos(x, eps);
+    double res = cos(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {
@@ -35,13 +41,13 @@ public class Trigonometry {
     return res;
   }
 
-  public double tan(double arg, double eps) {
+  public double tan(double arg) {
     double x = arg - Math.PI * Math.floor((arg + Math.PI/2) / Math.PI);
-    return (x > 0) ?  - sin(-x, eps) / cos(-x, eps) :  sin(x, eps) / cos(x, eps);
+    return (x > 0) ?  - sin(-x) / cos(-x) :  sin(x) / cos(x);
   }
 
   public double writeTanCSV(double x, Writer out) {
-    double res = tan(x, eps);
+    double res = tan(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {
@@ -50,12 +56,12 @@ public class Trigonometry {
     return res;
   }
 
-  public double sec(double x, double eps) {
-    return 1/cos(-Math.abs(x), eps);
+  public double sec(double x) {
+    return 1/cos(-Math.abs(x));
   }
 
   public double writeSecCSV(double x, Writer out) {
-    double res = sec(x, eps);
+    double res = sec(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {
@@ -64,12 +70,12 @@ public class Trigonometry {
     return res;
   }
 
-  public double cot(double x, double eps) {
-    return 1/tan(x,eps);
+  public double cot(double x) {
+    return 1/tan(x);
   }
 
   public double writeCotCSV(double x, Writer out) {
-    double res = cot(x, eps);
+    double res = cot(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {

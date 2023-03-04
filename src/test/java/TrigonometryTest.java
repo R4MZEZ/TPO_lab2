@@ -13,6 +13,7 @@ public class TrigonometryTest {
   static void init() {
     DELTA = 0.0001;
     tr = new Trigonometry();
+    tr.setEps(DELTA);
   }
 
   @Test
@@ -26,24 +27,28 @@ public class TrigonometryTest {
   @ValueSource(doubles = {-10.0, -1.01, -1, -0.99, -0.01, 0, 10.0, 1.01, 1, 0.99, 0.01, Double.NaN,
       Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY})
   public void generalTest(double param) {
+    if (param == 0){
+      System.out.println();
+    }
     assertAll(param);
   }
 
   private void assertAll(double param) {
-    Assertions.assertEquals(Math.sin(param), tr.sin(param, DELTA), DELTA);
-    Assertions.assertEquals(Math.cos(param), tr.cos(param, DELTA), DELTA);
-    Assertions.assertEquals(Math.tan(param), tr.tan(param, DELTA), DELTA);
-    Assertions.assertEquals(1 / Math.cos(param), tr.sec(param, DELTA), DELTA);
-    Assertions.assertEquals(1 / Math.tan(param), tr.cot(param, DELTA), DELTA);
+
+    Assertions.assertEquals(Math.sin(param), tr.sin(param), DELTA);
+    Assertions.assertEquals(Math.cos(param), tr.cos(param), DELTA);
+    Assertions.assertEquals(Math.tan(param), tr.tan(param), DELTA);
+    Assertions.assertEquals(1 / Math.cos(param), tr.sec(param), DELTA);
+    Assertions.assertEquals(1 / Math.tan(param), tr.cot(param), DELTA);
   }
 
   @ParameterizedTest
   @ValueSource(doubles = {-0.99, -0.01, 0})
   public void symmetricalTest(double param) {
-    Assertions.assertEquals(Math.sin(param), -tr.sin(-param, DELTA), DELTA);
-    Assertions.assertEquals(Math.cos(param), tr.cos(-param, DELTA), DELTA);
-    Assertions.assertEquals(Math.tan(param), -tr.tan(-param, DELTA), DELTA);
-    Assertions.assertEquals(1 / Math.cos(param), tr.sec(-param, DELTA), DELTA);
-    Assertions.assertEquals(1 / Math.tan(param), -tr.cot(-param, DELTA), DELTA);
+    Assertions.assertEquals(Math.sin(param), -tr.sin(-param), DELTA);
+    Assertions.assertEquals(Math.cos(param), tr.cos(-param), DELTA);
+    Assertions.assertEquals(Math.tan(param), -tr.tan(-param), DELTA);
+    Assertions.assertEquals(1 / Math.cos(param), tr.sec(-param), DELTA);
+    Assertions.assertEquals(1 / Math.tan(param), -tr.cot(-param), DELTA);
   }
 }

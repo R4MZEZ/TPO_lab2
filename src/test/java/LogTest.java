@@ -11,7 +11,7 @@ public class LogTest {
     static void init() {
         DELTA = 0.0001;
         log = new MyLog();
-        log.setExp(DELTA);
+        log.setEps(DELTA);
     }
 
     @Test

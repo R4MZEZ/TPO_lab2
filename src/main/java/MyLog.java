@@ -8,22 +8,22 @@ public class MyLog {
 
     private final static MyLn ln = new MyLn();
 
-    private Double exp = 0.0001;
+    private double eps = 0.0001;
 
-    public void setExp(double x) {
-        this.exp = x;
+    public void setEps(double x) {
+        this.eps = x;
     }
 
     public double ln(double x) {
-        return ln.calculate(x, exp);
+        return ln.calculate(x, eps);
     }
 
     public double log(double arg, double base) {
-        return ln.calculate(arg, exp)/ln.calculate(base, exp);
+        return ln.calculate(arg, eps)/ln.calculate(base, eps);
     }
 
     public double writeLnCSV(double x, Writer out) {
-        double res = ln(x, eps);
+        double res = ln(x);
         try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
             printer.printRecord(x, res);
         } catch (IOException e) {
