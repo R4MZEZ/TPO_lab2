@@ -30,4 +30,14 @@ public class MyLog {
         }
         return res;
     }
+
+    public double writeLogCSV(double x, double base, Writer out) {
+        double res = log(x, base);
+        try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
+            printer.printRecord(x, res);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return res;
+    }
 }
