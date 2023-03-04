@@ -19,10 +19,18 @@ public class MyFunction {
     log.setEps(eps);
   }
   public MyFunction() {
-    tr = new Trigonometry();
-    log = new MyLog();
-    tr.setEps(eps);
-    log.setEps(eps);
+    tr = new Trigonometry(eps);
+    log = new MyLog(eps);
+  }
+
+  public MyFunction(Trigonometry tr, MyLog log) {
+    this.tr = tr;
+    this.log = log;
+  }
+
+  public MyFunction(double eps) {
+    this();
+    setEps(eps);
   }
 
   public double calculate(double x) {
@@ -36,8 +44,12 @@ public class MyFunction {
   }
 
   public void writeCSV(double x, PrintWriter out) {
-    out.print(x);
-    out.print(",");
-    out.println(calculate(x));
+    double res = calculate(x);
+    try{
+      CSVPrinter printer = CSVFormat.DEFAULT.print(out);
+      printer.printRecord(x, res);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

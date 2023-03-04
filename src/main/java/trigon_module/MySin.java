@@ -8,10 +8,14 @@ import java.io.Writer;
 
 public class MySin {
 
-  private final static double DELTA = 0.0001;
+  private static double DELTA = 0.0001;
 
   public double calculate(double x) {
     return calculate(x, DELTA);
+  }
+
+  public MySin(double eps) {
+    DELTA = eps;
   }
 
   public double calculate(double x, double eps) {
@@ -43,9 +47,10 @@ public class MySin {
     return res;
   }
 
-  public double writeCSV(double x, double eps, Writer out) {
-    double res = calculate(x, eps);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
+  public double writeCSV(double x, Writer out) {
+    double res = calculate(x, DELTA);
+    try {
+      CSVPrinter printer = CSVFormat.DEFAULT.print(out);
       printer.printRecord(x, res);
     } catch (IOException e) {
       System.out.println(e.getMessage());

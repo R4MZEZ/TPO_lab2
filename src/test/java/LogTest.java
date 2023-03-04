@@ -11,8 +11,7 @@ public class LogTest {
     @BeforeAll
     static void init() {
         DELTA = 0.0001;
-        log = new MyLog();
-        log.setEps(DELTA);
+        log = new MyLog(DELTA);
     }
 
     @Test

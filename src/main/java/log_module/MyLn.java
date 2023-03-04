@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class MyLn {
+    public MyLn() {};
+    public MyLn(double eps) {
+        MyLn.DELTA = eps;
+    }
 
-    private final static double DELTA = 0.0001;
+    private static double DELTA = 0.0001;
 
     public double calculate(double rawX) {return calculate(rawX, DELTA);}
 
@@ -29,13 +33,13 @@ public class MyLn {
         return rawX > 1 ? -result : result;
     }
 
-    public double writeCSV(double x, double eps, Writer out) {
-        double res = calculate(x, eps);
-        try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
+    public void writeCSV(double x, Writer out) {
+        double res = calculate(x, DELTA);
+        try {
+            CSVPrinter printer = CSVFormat.DEFAULT.print(out);
             printer.printRecord(x, res);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return res;
     }
 }

@@ -13,8 +13,7 @@ public class TrigonometryTest {
   @BeforeAll
   static void init() {
     eps = 0.0001;
-    tr = new Trigonometry();
-    tr.setEps(eps);
+    tr = new Trigonometry(eps);
   }
 
   @Test

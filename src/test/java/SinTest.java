@@ -11,7 +11,7 @@ public class SinTest {
   @BeforeAll
   static void init() {
     DELTA = 0.0001;
-    sin = new MySin();
+    sin = new MySin(DELTA);
   }
 
   @ParameterizedTest

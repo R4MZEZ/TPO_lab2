@@ -1,5 +1,9 @@
 package trigon_module;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.util.HashMap;
@@ -8,8 +12,13 @@ import java.util.function.Function;
 
 public class Trigonometry {
 
-  private final static MySin sin = new MySin();
-  private double eps = 0.0001;
+  private double eps;
+  private final MySin sin;
+
+  public Trigonometry(double eps) {
+    this.eps = eps;
+    sin  = new MySin(eps);
+  }
 
   public void setEps(double x) {
     this.eps = x;
@@ -36,22 +45,13 @@ public class Trigonometry {
     return 1/tan(x);
   }
 
-  public void writeCSV(double x, FunctionType type, PrintWriter out) {
-    out.print(x);
-    out.print(",");
-    out.println(functionCSVMapper.get(type).apply(x));
+  public void writeCSV(double x, PrintWriter out) {
+    try {
+      CSVPrinter printer = CSVFormat.DEFAULT.print(out);
+      printer.printRecord(x, sin(x), cos(x), tan(x), sec(x), cot(x));
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
-  Map<FunctionType, Function<Double, Double>> functionCSVMapper= new HashMap<>();
-  {
-    functionCSVMapper.put(FunctionType.SIN, this::sin);
-    functionCSVMapper.put(FunctionType.COS, this::cos);
-    functionCSVMapper.put(FunctionType.TAN, this::tan);
-    functionCSVMapper.put(FunctionType.SEC, this::sec);
-    functionCSVMapper.put(FunctionType.COT, this::cot);
-  }
-
-  public enum FunctionType {
-    SIN, COS, TAN, SEC, COT
-  }
 }

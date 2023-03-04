@@ -12,6 +12,10 @@ public class MyLog {
     private final static MyLn ln = new MyLn();
     private double eps = 0.0001;
 
+    public MyLog(double eps) {
+        this.eps = eps;
+    }
+
     public void setEps(double x) {
         this.eps = x;
     }
@@ -24,15 +28,13 @@ public class MyLog {
         return ln.calculate(arg, eps)/ln.calculate(base, eps);
     }
 
-    public void writeLnCSV(double x, PrintWriter out) {
-        out.print(x);
-        out.print(",");
-        out.println(ln(x));
+    public void writeCSV(double x, PrintWriter out) {
+        try {
+            CSVPrinter printer = CSVFormat.DEFAULT.print(out);
+            printer.printRecord(x, ln(x), log(x, 2), log(x, 3), log(x, 10));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public void writeLogCSV(double x, double base, PrintWriter out) {
-        out.print(x);
-        out.print(",");
-        out.println(log(x, base));
-    }
 }

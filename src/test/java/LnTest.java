@@ -12,7 +12,7 @@ public class LnTest {
     @BeforeAll
     static void init() {
         DELTA = 0.0001;
-        log = new MyLn();
+        log = new MyLn(DELTA);
     }
 
     @Test
