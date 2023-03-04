@@ -8,7 +8,7 @@ import java.io.Writer;
 
 public class MySin {
 
-  private static double DELTA = 0.0001;
+  private static double DELTA = 0.001;
 
   public double calculate(double x) {
     return calculate(x, DELTA);
@@ -17,6 +17,8 @@ public class MySin {
   public MySin(double eps) {
     DELTA = eps;
   }
+
+  public MySin() {}
 
   public double calculate(double x, double eps) {
     if (x == Double.NEGATIVE_INFINITY || x == Double.POSITIVE_INFINITY || Double.isNaN(x)) {
@@ -48,10 +50,11 @@ public class MySin {
   }
 
   public double writeCSV(double x, Writer out) {
-    double res = calculate(x, DELTA);
+    double res = calculate(x);
+    double tanArg = -Math.abs(x - Math.PI * Math.floor((x + Math.PI/2) / Math.PI));
     try {
       CSVPrinter printer = CSVFormat.DEFAULT.print(out);
-      printer.printRecord(x, res);
+      printer.printRecord(x, res, calculate(Math.PI/2 + x), calculate(tanArg), calculate(Math.PI/2 + tanArg));
     } catch (IOException e) {
       System.out.println(e.getMessage());
     }

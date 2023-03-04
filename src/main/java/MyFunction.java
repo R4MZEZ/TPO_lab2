@@ -11,7 +11,7 @@ public class MyFunction {
 
   private final Trigonometry tr;
   private final MyLog log;
-  private double eps;
+  private double eps = 0.001;
 
   public void setEps(double x) {
     this.eps = x;

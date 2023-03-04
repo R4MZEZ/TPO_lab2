@@ -6,14 +6,16 @@ import org.apache.commons.csv.CSVPrinter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 public class Trigonometry {
 
   private double eps;
   private final MySin sin;
+
+  public Trigonometry(MySin sin) {
+    this.eps = 0.001;
+    this.sin = sin;
+  }
 
   public Trigonometry(double eps) {
     this.eps = eps;
@@ -25,7 +27,7 @@ public class Trigonometry {
   }
 
   public double sin(double x) {
-    return sin.calculate(x, eps);
+    return sin.calculate(x);
   }
 
   public double cos(double x) {

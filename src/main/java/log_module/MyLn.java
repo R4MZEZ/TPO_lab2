@@ -12,7 +12,7 @@ public class MyLn {
         MyLn.DELTA = eps;
     }
 
-    private static double DELTA = 0.0001;
+    private static double DELTA = 0.001;
 
     public double calculate(double rawX) {return calculate(rawX, DELTA);}
 

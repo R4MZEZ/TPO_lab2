@@ -9,8 +9,12 @@ import java.io.Writer;
 
 public class MyLog {
 
-    private final static MyLn ln = new MyLn();
-    private double eps = 0.0001;
+    private static MyLn ln = new MyLn();
+    private double eps = 0.001;
+
+    public MyLog(MyLn ln) {
+       MyLog.ln = ln;
+    }
 
     public MyLog(double eps) {
         this.eps = eps;
@@ -21,11 +25,11 @@ public class MyLog {
     }
 
     public double ln(double x) {
-        return ln.calculate(x, eps);
+        return ln.calculate(x);
     }
 
     public double log(double arg, double base) {
-        return ln.calculate(arg, eps)/ln.calculate(base, eps);
+        return ln(arg)/ln(base);
     }
 
     public void writeCSV(double x, PrintWriter out) {
