@@ -37,8 +37,8 @@ public class Trigonometry {
     return 1/tan(x);
   }
 
-  public double writeCSV(double x, Writer out) {
-    double res = cot(x);
+  public double writeCSV(double x, FunctionType type, Writer out) {
+    double res = functionCSVMapper.get(type).apply(x);
     try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
       printer.printRecord(x, res);
     } catch (IOException e) {
@@ -57,6 +57,6 @@ public class Trigonometry {
   }
 
   enum FunctionType {
-    SIN, COS, TAN, SEC, COT;
+    SIN, COS, TAN, SEC, COT
   }
 }

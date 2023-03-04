@@ -27,9 +27,6 @@ public class TrigonometryTest {
   @ValueSource(doubles = {-10.0, -1.01, -1, -0.99, -0.01, 0, 10.0, 1.01, 1, 0.99, 0.01, Double.NaN,
       Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY})
   public void generalTest(double param) {
-    if (param == 0){
-      System.out.println();
-    }
     assertAll(param);
   }
 

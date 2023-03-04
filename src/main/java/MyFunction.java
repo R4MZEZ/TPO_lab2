@@ -12,6 +12,8 @@ public class MyFunction {
 
   public void setEps(double x) {
     this.eps = x;
+    tr.setEps(eps);
+    log.setEps(eps);
   }
   public MyFunction() {
     tr = new Trigonometry();
