@@ -5,6 +5,7 @@ public class MyLn {
     public double calculate(double rawX) {return calculate(rawX, DELTA);}
 
     public double calculate(double rawX, double delta) {
+        if (Double.isNaN(rawX)) return  Double.NaN;
         if (rawX < 0) return Double.NaN;
         if (rawX == 0) return Double.NEGATIVE_INFINITY;
         double x;
