@@ -6,6 +6,7 @@ import java.io.Writer;
 
 public class Trigonometry {
 
+  private final static MySin sin = new MySin();
   private double eps = 0.0001;
 
   public void setEps(double x) {
@@ -13,7 +14,6 @@ public class Trigonometry {
   }
 
   public double sin(double x) {
-    MySin sin = new MySin();
     return sin.calculate(x, eps);
   }
 

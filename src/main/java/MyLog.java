@@ -7,7 +7,6 @@ import java.io.Writer;
 public class MyLog {
 
     private final static MyLn ln = new MyLn();
-
     private double eps = 0.0001;
 
     public void setEps(double x) {

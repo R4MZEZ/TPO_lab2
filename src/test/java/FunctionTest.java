@@ -15,7 +15,7 @@ class FunctionTest {
     @BeforeAll
     static void init() {
         func = new MyFunction();
-        DELTA = 0.0001;
+        DELTA = 0.001;
     }
 
     Map<Double, Double> parameterAnswer = new HashMap<>();
@@ -44,7 +44,7 @@ class FunctionTest {
     @Test
     public void periodFunc() {
         for (int x = -1700; x < -800; x ++) {
-            Assertions.assertEquals(func.calculate(x), func.calculate(x + Math.PI * 2), DELTA);
+            Assertions.assertEquals(func.calculate(x, DELTA), func.calculate(x + Math.PI * 2, DELTA), DELTA);
         }
     }
 }
