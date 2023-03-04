@@ -7,9 +7,16 @@ public class MySin {
   }
 
   public double calculate(double x, double eps) {
-    x = validate(x);
-    if (Double.isNaN(x)){
+    if (x == Double.NEGATIVE_INFINITY || x == Double.POSITIVE_INFINITY || Double.isNaN(x)) {
       return Double.NaN;
+    } else if (x > 0) {
+      while (x > Math.PI) {
+        x -= 2 * Math.PI;
+      }
+    } else if (x < 0) {
+      while (x < -Math.PI) {
+        x += 2 * Math.PI;
+      }
     }
 
     double res = x, term = x;
@@ -28,18 +35,4 @@ public class MySin {
     return res;
   }
 
-  public double validate(double x){
-    if (x == Double.NEGATIVE_INFINITY || x == Double.POSITIVE_INFINITY || Double.isNaN(x)) {
-      return Double.NaN;
-    } else if (x > 0) {
-      while (x > Math.PI) {
-        x -= 2 * Math.PI;
-      }
-    } else if (x < 0) {
-      while (x < -Math.PI) {
-        x += 2 * Math.PI;
-      }
-    }
-    return x;
-  }
 }
