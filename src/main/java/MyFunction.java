@@ -18,7 +18,7 @@ public class MyFunction {
           tr.cos(x, eps) * tr.cot(x, eps))))));
     } else {
       return (((((log.log(x, 10) - log.log(x, 2)) * log.log(x, 2)) + (log.log(x, 10) / log.ln(x)))
-          + log.log(x, 10)) + ((log.log(x, 10) / log.log(x, 2)) / log.log(x, 3)));
+          + log.log(x, 2)) + ((log.log(x, 10) / log.log(x, 2)) / log.log(x, 3)));
     }
   }
 }
