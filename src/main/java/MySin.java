@@ -7,21 +7,14 @@ public class MySin {
   }
 
   public double calculate(double x, double eps) {
-    if (x == Double.NEGATIVE_INFINITY || x == Double.POSITIVE_INFINITY || Double.isNaN(x)) {
+    x = validate(x);
+    if (Double.isNaN(x)){
       return Double.NaN;
-    } else if (x > 0) {
-      while (x > Math.PI) {
-        x -= 2 * Math.PI;
-      }
-    }else if (x < 0){
-      while (x < -Math.PI) {
-        x += 2 * Math.PI;
-      }
     }
 
     double res = x, term = x;
     double divisible = x * x * x;
-    int divider = 6, sign = -1, pow = 3;
+    long divider = 6, sign = -1, pow = 3;
 
     while (Math.abs(term) > eps) {
       term = sign * (divisible / divider);
@@ -33,5 +26,20 @@ public class MySin {
     }
 
     return res;
+  }
+
+  public double validate(double x){
+    if (x == Double.NEGATIVE_INFINITY || x == Double.POSITIVE_INFINITY || Double.isNaN(x)) {
+      return Double.NaN;
+    } else if (x > 0) {
+      while (x > Math.PI) {
+        x -= 2 * Math.PI;
+      }
+    } else if (x < 0) {
+      while (x < -Math.PI) {
+        x += 2 * Math.PI;
+      }
+    }
+    return x;
   }
 }
