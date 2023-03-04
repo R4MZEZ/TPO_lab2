@@ -1,3 +1,5 @@
+package trigon_module;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 

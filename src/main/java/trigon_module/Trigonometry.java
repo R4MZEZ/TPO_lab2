@@ -1,8 +1,7 @@
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+package trigon_module;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -37,14 +36,10 @@ public class Trigonometry {
     return 1/tan(x);
   }
 
-  public double writeCSV(double x, FunctionType type, Writer out) {
-    double res = functionCSVMapper.get(type).apply(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
+  public void writeCSV(double x, FunctionType type, PrintWriter out) {
+    out.print(x);
+    out.print(",");
+    out.println(functionCSVMapper.get(type).apply(x));
   }
 
   Map<FunctionType, Function<Double, Double>> functionCSVMapper= new HashMap<>();
@@ -56,7 +51,7 @@ public class Trigonometry {
     functionCSVMapper.put(FunctionType.COT, this::cot);
   }
 
-  enum FunctionType {
+  public enum FunctionType {
     SIN, COS, TAN, SEC, COT
   }
 }

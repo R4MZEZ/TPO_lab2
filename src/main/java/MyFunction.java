@@ -1,8 +1,11 @@
+import java.io.PrintWriter;
+import log_module.MyLog;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import java.io.IOException;
 import java.io.Writer;
+import trigon_module.Trigonometry;
 
 public class MyFunction {
 
@@ -32,13 +35,9 @@ public class MyFunction {
     }
   }
 
-  public double writeCSV(double x, Writer out) {
-    double res = calculate(x);
-    try (CSVPrinter printer = CSVFormat.DEFAULT.print(out)){
-      printer.printRecord(x, res);
-    } catch (IOException e) {
-      System.out.println(e.getMessage());
-    }
-    return res;
+  public void writeCSV(double x, PrintWriter out) {
+    out.print(x);
+    out.print(",");
+    out.println(calculate(x));
   }
 }
