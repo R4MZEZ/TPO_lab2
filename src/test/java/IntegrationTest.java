@@ -35,7 +35,6 @@ public class IntegrationTest {
 
     private final static String dirPath = "/resources/CsvFiles/output/";
     private static final Map<Class<?>, Object> objects = new HashMap<>();
-
     static {
         objects.put(MyFunction.class, Mockito.mock(MyFunction.class));
         objects.put(MyLn.class, Mockito.mock(MyLn.class));
@@ -45,7 +44,6 @@ public class IntegrationTest {
     }
 
     private static final Map<Class<?>, Consumer<Pair>> procedures = new HashMap<>();
-
     static {
         procedures.put(MyFunction.class, (pair) -> Mockito.when(((MyFunction) pair.obj).calculate(Double.parseDouble(pair.record.get(0)))).thenReturn(Double.parseDouble(pair.record.get(1))));
         procedures.put(MyLn.class, (pair) -> Mockito.when(((MyLn) pair.obj).calculate(Double.parseDouble(pair.record.get(0)))).thenReturn(Double.parseDouble(pair.record.get(1))));
@@ -96,7 +94,6 @@ public class IntegrationTest {
     @ParameterizedTest
     @CsvFileSource(resources = "resources/CSVFiles/output/MyFunctionOut.csv", encoding = "UTF-8")
     public void testFunctionWithTrigan(double x, double f) {
-        Trigonometry tr = new Trigonometry((MySin) objects.get(MySin.class));
         MyFunction function = new MyFunction(new Trigonometry((MySin) objects.get(MySin.class)), (MyLog) objects.get(MyLog.class));
         Assertions.assertEquals(f, function.calculate(x), DELTA);
     }
